@@ -1,0 +1,4 @@
+categories api ->   http://localhost:8000/api/categories       (config file icinde apiurl varsa)  await axios.get(`${config.apiUrl}/categories/?lang
+products api ->    http://localhost:8000/api/products
+blogs api->        http://localhost:8000/api/blogs
+sitesetting api ->  http://localhost:8000/api/sitesetting

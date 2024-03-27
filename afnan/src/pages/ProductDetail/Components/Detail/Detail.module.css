@@ -1,0 +1,70 @@
+.custom-Product__Info {
+    top: 168px;
+}
+
+
+.tabby-promo-snippet {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 500px;
+    padding: 13px 3px;
+    box-sizing: border-box;
+    background: none;
+    box-shadow: none !important;
+    border-radius: 7px;
+    color: #696969;
+    font-size: 14px;
+    line-height: 18px;
+    font-family: "Arial", "Roboto", "Helvetica", sans-serif;
+    transition: all 0.5s;
+    cursor: pointer;
+
+}
+
+.styles__tabby-promo-snippet__content--51d69 {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 0 16px 0 0
+}
+
+@media (max-width: 600px) {
+
+    .styles__tabby-promo-snippet__content--51d69 {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column
+    }
+}
+
+.styles__tabby-promo-snippet__content__rtl--ebb36 {
+    margin: 0 0 0 16px;
+}
+
+.styles__tabby-promo-snippet__text--93920 {
+    color: inherit;
+    color: var(--snippetTextColor, inherit);
+}
+
+.styles__tabby-promo-snippet__link--60af3 {
+    display: inline-block;
+    color: inherit;
+    color: var(--snippetLinkTextColor, inherit);
+    transition: opacity 0.2s;
+    text-decoration: underline;
+    margin: 5px 0
+}
+
+.styles__tabby-promo-snippet__link--60af3:hover {
+    opacity: 0.6;
+}

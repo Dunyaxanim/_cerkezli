@@ -1,0 +1,43 @@
+.custom-input {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.w-full-custom {
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-two-input {
+    display: flex;
+    gap: 3px;
+}
+
+.custom-fb-country-code {
+    flex: 1;
+}
+
+.custom-fb-number {
+    flex: 3;
+}
+
+input::placeholder {
+    color: #1C1B1B;
+    font-size: 14px;
+}
+
+.contact-button {
+    display: block;
+    color: white;
+    background-color: #071E4E;
+    font-size: 12px !important;
+    margin: auto;
+}
+
+.custom-link {
+    display: inline-block !important;
+    color: #089970 !important;
+    text-decoration: underline !important;
+    text-underline-position: under !important;
+}

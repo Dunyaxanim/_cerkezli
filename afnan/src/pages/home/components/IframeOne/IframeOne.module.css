@@ -1,0 +1,21 @@
+.bg-url-modal{
+    background-image: url('/images/iframe_one_bg1.webp');
+    height: 400px !important;
+}
+
+.bg-url-imageHero{
+
+    background-color: black;
+
+}
+
+
+.Custom-Modal{
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+}
+
+.iframe-custom {
+    display: block;
+}
