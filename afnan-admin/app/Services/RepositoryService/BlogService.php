@@ -68,7 +68,7 @@ class BlogService
         }
 
         $model = $this->repository->save($data, new Blog());
-       ;
+
         self::clearCached();
 
         return $model;
@@ -81,6 +81,7 @@ class BlogService
     public function update($request,$model)
     {
         $data=$request->all();
+
         foreach (config('app.languages') as $lang) {
 
             if (isset($data[$lang])) {
@@ -98,6 +99,7 @@ class BlogService
         if ($request->has('img')) {
             $data['img'] = $this->fileUploadService->replaceFile($request->img, $model->img, 'Category');
         }
+        dd($model);
         $model=$this->repository->save($data,$model);
         self::ClearCached();
         return $model;
