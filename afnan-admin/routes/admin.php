@@ -58,8 +58,8 @@ Route::post('/login',[\App\Http\Controllers\Auth\LoginController::class,'login']
          Route::get('look/detail/{id}', [\App\Http\Controllers\Admin\LookController::class,'detail'])->name('look.detail');
          Route::delete('look/detaildelete/{id}', [\App\Http\Controllers\Admin\LookController::class, 'detaildelete'])->name('look.detaildelete');
 
-
-
+    Route::resource('/timeline-category', \App\Http\Controllers\Admin\TimelineCategoryController::class)->except('show');
+//    Route::post('timeline/update-status/{id}', [\App\Http\Controllers\Admin\TimelineCategoryController::class,'update'])->name('timeline.category.update');
 
 
 
