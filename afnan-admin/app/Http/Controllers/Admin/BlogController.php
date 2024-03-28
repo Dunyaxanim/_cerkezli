@@ -36,7 +36,6 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-
         $this->service->store($request);
         return redirect()->route('blog.index')->with('success', 'Blog uğurla əlavə edildi');
     }
