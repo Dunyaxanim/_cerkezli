@@ -37,6 +37,8 @@ Route::middleware('setLocale')->group(callback: function () {
     Route::get('products/{id}', [\App\Http\Controllers\Front\ProductController::class,'getByCategoryId']);
     Route::get('product/{id}', [\App\Http\Controllers\Front\ProductController::class,'getById']);
     Route::get('collections/{id}', [\App\Http\Controllers\Front\CategoryController::class,'collectionById']);
+
+
 });
 
 

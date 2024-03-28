@@ -4,7 +4,6 @@ import Button from '../../../components/Button/Button'
 import { storedLanguage } from '../../../../http/api'
 import axios from 'axios'
 import config from '../../../../config'
-import product from '../../../../product'
 
 const CatalogParfum = () => {
     const [catalogs, setCatalog] = useState([])

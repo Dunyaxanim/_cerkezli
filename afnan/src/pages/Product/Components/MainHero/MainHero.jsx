@@ -16,7 +16,7 @@ const MainHero = ({ id }) => {
             }
         }
         fetchSliderMain()
-    }, [])
+    }, [id])
     return (
         <>
             <header className="PageHeader PageHeader--withBackground"

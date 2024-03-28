@@ -265,7 +265,7 @@ const
                                                 <div className={`${layoutMode === 4 ? 'Grid__Cell 1/2--phone 1/4--desk 1/3--tablet-and-up' : layoutMode === 1 ? 'Grid__Cell 1/1--phone 1/2--desk 1/2--tablet-and-up' : 'Grid__Cell 1/2--phone 1/2--desk 1/2--tablet-and-up'}`} key={index}>
                                                     <div className='ProductItem ProductItem-product-custom'>
                                                         <div className='ProductItem__Wrapper'>
-                                                            <Link to={`/detail/${product.id}`} className="ProductItem__ImageWrapper ProductItem__ImageWrapper--withAlternateImage">
+                                                            <Link to={`/detail/${product.slug}/${product.id}`} className="ProductItem__ImageWrapper ProductItem__ImageWrapper--withAlternateImage">
                                                                 <div className='AspectRatio AspectRatio--square AspectRatio--square-custom'>
                                                                     <img src={`${config.development.url}/${product.img}`} alt={product.title} className='ProductItem__Image ProductItem__Image--alternate Image--fadeIn lazyautosizes Image--lazyLoaded' />
                                                                     <img className='ProductItem__Image Image--fadeIn lazyautosizes Image--lazyLoaded' src={`${config.development.url}/${product.img_hover}`} alt={product.title} />
@@ -273,7 +273,7 @@ const
                                                             </Link>
                                                             <div className="ProductItem__Info ProductItem__Info--center  ProductItem__Info--center-custom">
                                                                 <h2 className="ProductItem__Title Heading">
-                                                                    <Link to={`/detail/${product.id}`}>{product.text}</Link>
+                                                                    <Link to={`/detail/${product.slug}/${product.id}`}>{product.text}</Link>
                                                                 </h2>
                                                                 <div className="ProductItem__PriceList ProductItem__PriceList--showOnHover Heading">
                                                                     <span className="ProductItem__Price Price Text--subdued">

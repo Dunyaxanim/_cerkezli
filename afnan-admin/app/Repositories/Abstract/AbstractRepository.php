@@ -63,11 +63,9 @@ abstract class AbstractRepository
     }
     public function save($data, Model $model)
     {
-
         if ($model->id) {
             $model->update($data);
         } else {
-
             $model->fill($data);
             $model->save();
         }

@@ -6,6 +6,12 @@
     -moz-osx-font-smoothing: grayscale
 }
 
+*{
+
+
+  font-family: "Nunito Sans", sans-serif;
+}
+
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
@@ -2253,12 +2259,14 @@ body:not(.is-tabbing) .flickity-enabled:focus {
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    height: calc(100% - 60px);
-    max-height: calc(100% - 50px)
+    /* height: calc(100% - 60px);
+    max-height: calc(100% - 50px); */
+    overflow: auto;
+    height: 100vh;
+
 }
 
-@supports (--css: variables) {
+/* @supports (--css: variables) {
     .Drawer__Content {
         height: calc(100% - var(--header-height));
         max-height: calc(100% - var(--header-height))
@@ -2270,7 +2278,7 @@ body:not(.is-tabbing) .flickity-enabled:focus {
         height: max(100% - var(--header-height), 100% - 60px);
         max-height: max(100% - var(--header-height), 100% - 60px)
     }
-}
+} */
 
 .Drawer__Main {
     flex: 1 1 auto
@@ -2308,12 +2316,12 @@ body:not(.is-tabbing) .flickity-enabled:focus {
         min-height: 60px
     }
 
-    @supports (width: max(100%)) {
+    /* @supports (width: max(100%)) {
         .Drawer__Content {
             height: max(100% - var(--header-height), 100% - 80px);
             max-height: max(100% - var(--header-height), 100% - 80px)
         }
-    }
+    } */
 
     .Drawer--fromLeft .Drawer__Container,
     .Drawer--fromRight .Drawer__Container {
@@ -7431,9 +7439,20 @@ select::-ms-expand {
     flex: 1 0 0;
     align-items: center
 }
-
+.none-plus{
+    display: none;
+}
 .Header__FlexItem--fill:last-child {
     justify-content: flex-end
+}
+
+@media screen and (min-width: 640px) and (max-width: 800px) {
+    .flex-1 {
+        flex: 1;
+    }
+    .flex-5 {
+        flex: 5;
+    }
 }
 
 .Header__CartDot {
@@ -8444,7 +8463,7 @@ screen and (min-width: 1008px) and (hover: hover) {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 24px 0
+    /* margin: 20px 24px 0 */
 }
 
 .Product__SlideshowMobileNav .flickity-page-dots {
@@ -11040,10 +11059,7 @@ button[aria-disabled=true] {
     background-size: cover;
 }
 
-h3.SectionHeader__SubHeading.Heading.u-h6,
-h2.SectionHeader__Heading.SectionHeader__Heading--emphasize.Heading.u-h1 {
-    color: #ffffff !important;
-}
+/* dunya css */
 
 a.CollectionItem__Link.Button {
     background-color: #ffffff;
@@ -11196,6 +11212,11 @@ a.CollectionItem__Link.Button:hover {
 height: 200px;
 } */
 
+
+.custom-data-scrollable{
+    max-height: 100%;
+    overflow-y: auto;
+}
 .custom-visibility {
     visibility: visible;
     transform: translate(0);
@@ -11778,12 +11799,13 @@ option {
     width: 100%;
 }
 
-.custom-container-classname{
+.custom-container-classname {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     font-size: 1.5rem;
 }
-.is-active-curent-page{
+
+.is-active-curent-page {
     border-bottom: 3px solid black;
 }
