@@ -5,8 +5,8 @@
         <div class="x_panel">
             <div class="x_title d-flex justify-content-between">
                 <div class="d-flex align-items-center ">
-                    <h2 class="mr-3">PRODUCT TABLE</h2>
-                    <button type="button" class="btn btn-success" onclick="window.location.href = '{{ route('product.create') }}'">ADD</button>
+                    <h2 class="mr-3">Timeline TABLE</h2>
+                    <button type="button" class="btn btn-success" onclick="window.location.href = '{{ route('timeline.create') }}'">ADD</button>
                 </div>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -42,24 +42,16 @@
                                 <tr>
 
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Slogan</th>
-                                    <th class="text-center">Text</th>
-                                    <th class="text-center">Kateqorya</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Stock Code</th>
-                                    <th class="text-center">Stock</th>
-                                    <th class="text-center">Price</th>
-                                    <th class="text-center">Images</th>
-                                    <th class="text-center">Əməliyatlar</th>
+                                    <th>Heading</th>
+                                    <th>Title</th>
+                                    <th class="text-center">Description</th>
                                     <th class="text-center">Img</th>
-                                    <th class="text-center">Hover img</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                @foreach($models as $model)
-
+                                @foreach($timelines as $model)
+{{--                                    @dd($model)--}}
                                     <tr>
                                         <td>
                                             {{$model->id}}
@@ -67,19 +59,7 @@
                                         <td>
                                             {{ strlen($model->name) > 20 ? substr($model->name, 0, 20) . '...' : $model->name }}</td>
                                         <td>
-                                            {{ strlen($model->slogan) > 20 ? substr($model->slogan, 0, 20) . '...' : $model->slogan}}</td>
                                         <td>{{ strlen($model->text) > 30 ? substr($model->text, 0, 30) . '...' : $model->text }}</td>
-
-                                        <td class="text-center "  style="max-width: 200px;">
-                                            @if($model->categories->isNotEmpty())
-                                                @foreach($model->categories as $category)
-                                                    <span class="border border-primary p-1">{{ $category->name }}</span>
-
-                                                @endforeach
-                                            @else
-                                                Seçilməyib
-                                            @endif
-                                        </td>
 
 
                                         <td class="text-center">
@@ -90,21 +70,16 @@
                                         </td>
 
                                         <td class="text-center">
-                                         {{$model->stock_code}}
+                                         {{$model->like_count}}
                                         </td>
-                                        <td class="text-center">{{$model->in_stock}}</td>
-                                        <td class="text-center">{{$model->price}}</td>
-                                        <td>
-                                            <a type="button" class="btn btn-warning" >
-                                                <i class="fa fa-trash"></i> Imges
-                                            </a>
-                                        </td>
+                                        <td class="text-center">{{$model->view_count}}</td>
+                                        <td class="text-center">{{$model->order}}</td>
                                         <td class="d-flex  justify-content-center ">
                                             <form method="POST" action="{{route('category.edit',$model->id)}}">
                                                 @csrf
-                                                <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ route('product.edit',$model->id) }}'"><i class="fa fa-edit"> EDIT</i></button>
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ route('timeline.edit',$model->id) }}'"><i class="fa fa-edit"> EDIT</i></button>
                                             </form>
-                                            <form id="deleteForm{{$model->id}}" method="POST" action="{{ route('product.destroy', ['product' => $model->id]) }}" style="display: inline;">
+                                            <form id="deleteForm{{$model->id}}" method="POST" action="{{ route('timeline.destroy', ['timeline' => $model->id]) }}" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger" onclick="confirmAndSubmit({{$model->id}})">
@@ -112,17 +87,14 @@
                                                 </button>
                                             </form>
                                         </td>
-
+                                        <td class="text-center">
+                                            @if($model->user)
+                                            {{$model->user->name}}</td>
+                                        @else
+                                        @endif
                                         <td >
                                             @if($model->img)
-                                            <img src="{{Storage::url($model->img)}}" width="110px" height="70px">
-                                            @else
-                                                Şəkil yoxdur
-                                            @endif
-                                        </td>
-                                        <td >
-                                            @if($model->img_hover)
-                                                <img src="{{Storage::url($model->img_hover)}}" width="110px" height="70px">
+                                            <img src="{{Storage::url($model->img)}}" width="130px" height="100px">
                                             @else
                                                 Şəkil yoxdur
                                             @endif
@@ -132,7 +104,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-center">{{$models->links()}}</div>
+{{--                        <div class="d-flex justify-content-center">{{$models->links()}}</div>--}}
                     </div>
                 </div>
             </div>
@@ -169,22 +141,16 @@
         function updateStatus(id) {
             var status = document.getElementById('customSwitches' + id).checked ? 1 : 0;
 
-
             $.ajax({
-                url: 'product/update-status/'+id,
-                type: 'POST',
+                url: 'blog/update-status/' + id,
+                type: 'PUT',
                 data: {
                     status: status,
                     _token: '{{ csrf_token() }}'
                 },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
             });
         }
+
     </script>
 
 @endsection
