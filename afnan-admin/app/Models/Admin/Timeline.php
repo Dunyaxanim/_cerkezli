@@ -12,15 +12,14 @@ class Timeline extends Model implements TranslatableContract
     use HasFactory;
     use Translatable;
 
-//    protected $fillable = [ 'img','category_id'];
-//    public $translationModel =TimelineCategoryTranslation::class;
-//    public $translatedAttributes = ['heading','title','description'];
-//
+    protected $fillable = [ 'img','timeline_category_id'];
+    public $translationModel =TimelineTranslation::class;
+    public $translatedAttributes = ['heading','title','description'];
 
 
 
     public function timeLineCategory()
     {
-        return $this->belongsTo(TimeLineCategory::class, 'category_id');
+        return $this->belongsTo(TimeLineCategory::class, 'timeline_category_id');
     }
 }

@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timeline', function (Blueprint $table) {
+        Schema::create('timelines', function (Blueprint $table) {
             $table->id();
             $table->string('img')->nullable();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('timeline_categories')->onDelete('cascade');
+            $table->unsignedBigInteger('timeline_category_id');
+            $table->foreign('timeline_category_id')->references('id')->on('timeline_categories')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::create('timeline_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('timeline_id')->references('id')->on('timeline')->onDelete('cascade');
             $table->string('heading');
             $table->string('title');
             $table->longText('description');
+
+
+            $table->foreignId('timeline_id')->references('id')->on('timelines')->onDelete('cascade');
             $table->string('locale')->index();
             $table->timestamps();
         });
