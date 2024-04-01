@@ -4,4 +4,3 @@ blogs api->        http://localhost:8000/api/blogs
 sitesetting api ->  http://localhost:8000/api/sitesetting
 
 
-test branch azer

@@ -94,11 +94,12 @@
                                         </td>
                                         <td class="text-center">{{$model->in_stock}}</td>
                                         <td class="text-center">{{$model->price}}</td>
-                                        <td>
-                                            <a type="button" class="btn btn-warning" >
-                                                <i class="fa fa-trash"></i> Imges
-                                            </a>
-                                        </td>
+{{--                                        <td>--}}
+
+{{--                                                <a type="button" href="{{ route('product-images.index', $model->id)}}" class="btn btn-primary" ><i class="fa fa-edit"> IMAGES</i></a>--}}
+
+{{--                                        </td>--}}
+
                                         <td class="d-flex  justify-content-center ">
                                             <form method="POST" action="{{route('category.edit',$model->id)}}">
                                                 @csrf
