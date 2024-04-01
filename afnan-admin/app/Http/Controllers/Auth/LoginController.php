@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function showLogin(){
+    public function showLogin()
+    {
         return view('auth.pages.login');
     }
     public function login(LoginRequest $request)
@@ -35,18 +36,18 @@ class LoginController extends Controller
 
         return redirect()->back()->withInput()->withErrors(['email' => 'Email ya da şifreniz yanlış!']);
     }
-    public function logout(Request $request){
-        if ((Auth::check()))
-        {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login');
+    public function logout(Request $request)
+    {
+        if ((Auth::check())) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login');
         };
     }
 
-    public function showRegister(){
+    public function showRegister()
+    {
         return view('auth.pages.register');
     }
-
 }

@@ -24,7 +24,6 @@ class SettingRequest extends FormRequest
         $data = [
             'logo' => [ 'nullable','mimetypes:image/jpeg,image/png,image/webp,image/avif,image/svg'],
             'favicon' => [ 'nullable','mimetypes:image/jpeg,image/png,image/webp,image/avif,image/svg'],
-
         ];
         return $this->mapLanguageValidations($data);
     }

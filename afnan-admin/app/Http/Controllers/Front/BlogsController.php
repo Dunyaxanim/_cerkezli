@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class BlogsController extends Controller
 {
-
     public function index()
     {
         $blogs = Blog::with(['category', 'user' => function ($query) {
@@ -19,7 +18,6 @@ class BlogsController extends Controller
         $blogs->each(function ($blog) {
             $blog->formatted_created_at = $blog->getFormattedCreatedAtAttribute();
         });
-
         return response()->json($blogs);
     }
 

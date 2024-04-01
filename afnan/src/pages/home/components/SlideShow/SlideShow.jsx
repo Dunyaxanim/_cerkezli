@@ -46,8 +46,7 @@ const SlideShow = () => {
         }
         fetchSliderMain()
     }, [])
-
-
+    
     return (
         <div id="shopify-section-slideshow " className='shopify-section shopify-section--slideshow custom-shopify-section-slideshow'>
             <section id='section-slideshow' data-section-id="slideshow" data-section-type="slideshow">
@@ -70,7 +69,7 @@ const SlideShow = () => {
                                                     <h2 className='SectionHeader__Heading SectionHeader__Heading--emphasize Heading u-h1'>{item.name}</h2>
                                                     <div className={`SectionHeader__ButtonWrapper ${currentSlide === index ? 'v-inherit-button' : 'v-hidden-button'}`}>
                                                         <div className='ButtonGroup ButtonGroup--spacingSmall '>
-                                                            <Link className="ButtonGroup__Item Button">View Detail</Link>
+                                                            <Link className="ButtonGroup__Item Button custom-hover-button">View Detail</Link>
                                                         </div>
                                                     </div>
                                                 </header>

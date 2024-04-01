@@ -26,7 +26,7 @@ class UserStoreRequest extends FormRequest
             'name'=>['required'],
             'surname'=>['required'],
             'email'=>['required', 'email', 'unique:users'],
-            'password'=>['required',\Illuminate\Validation\Rules\Password::min(3)->symbols()->mixedCase()->numbers()],
+            'password'=>['required',\Illuminate\Validation\Rules\Password::min(3)->numbers()],
             'phone'=>['nullable','size:7'],
             'img' => [ 'nullable','mimetypes:image/jpeg,image/png,image/webp,image/avif,image/svg'],
         ];

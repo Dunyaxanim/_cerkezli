@@ -62,6 +62,7 @@ Route::post('/login',[\App\Http\Controllers\Auth\LoginController::class,'login']
          Route::get('look/detail/{id}', [LookController::class,'detail'])->name('look.detail');
          Route::delete('look/detaildelete/{id}', [LookController::class, 'detaildelete'])->name('look.detaildelete');
 
+    Route::resource('/timeline-category', \App\Http\Controllers\Admin\TimelineCategoryController::class)->except('show');
 
       //Instalment
          Route::resource('/instalment',InstalmentController::class)->except('show');
@@ -71,5 +72,7 @@ Route::post('/login',[\App\Http\Controllers\Auth\LoginController::class,'login']
 
       //Creator
          Route::resource('/creator',CreatorController::class)->except('show');
+    Route::resource('/timeline', \App\Http\Controllers\Admin\TimelineController::class)->except('show');
+
      });
 

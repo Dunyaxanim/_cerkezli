@@ -18,7 +18,7 @@ return new  class extends Migration
             $table->text('img')->nullable()->after('about');
             $table->string('prefix')->nullable()->after('img');
             $table->text('phone')->nullable()->after('prefix');
-            $table->text('status')->default('0')->after('phone');
+            $table->string('status')->default('0')->nullable()->after('phone');
         });
     }
 

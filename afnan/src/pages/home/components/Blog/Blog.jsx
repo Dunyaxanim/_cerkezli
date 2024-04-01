@@ -31,7 +31,7 @@ const Blog = () => {
                         <div className='ArticleList Grid Grid--m Grid--center'>
                             {
                                 blogs.map((blog) => (
-                                    <div key={blog.key} className='Grid__Cell 1/2--tablet 1/3--lap-and-up '>
+                                    <div key={blog.name} className='Grid__Cell 1/2--tablet 1/3--lap-and-up '>
                                         <article className='ArticleItem custom-ArticleItem'>
                                             <Link to={`/blog/detail/${blog.slug}/${blog.id}`} className='ArticleItem__ImageWrapper AspectRatio AspectRatio--withFallback custom-ArticleItem__ImageWrapper'>
                                                 <img src={`${config.development.url}/${blog.img}`} className='ArticleItem__Image Image--fadeIn lazyautosizes Image--lazyLoaded' alt={blog.name} />

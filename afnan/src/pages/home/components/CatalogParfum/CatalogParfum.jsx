@@ -4,7 +4,6 @@ import Button from '../../../components/Button/Button'
 import { storedLanguage } from '../../../../http/api'
 import axios from 'axios'
 import config from '../../../../config'
-import product from '../../../../product'
 
 const CatalogParfum = () => {
     const [catalogs, setCatalog] = useState([])
@@ -21,6 +20,7 @@ const CatalogParfum = () => {
                 setItems(fetchCatalogData[0].products)
                 setSlug(fetchCatalogData[0].slug)
                 setItemId(fetchCatalogData[0].id)
+                
             } catch (error) {
                 console.error('Error fetching data', error);
             }

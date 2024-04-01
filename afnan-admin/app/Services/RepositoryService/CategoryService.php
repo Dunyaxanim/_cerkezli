@@ -71,10 +71,10 @@ class CategoryService
     {
         $data=$request->all();
         foreach (config('app.languages') as $lang) {
-
             if (isset($data[$lang])) {
-
+                
                 foreach ($data[$lang] as $key => $name) {
+                   
                     $data[$lang]['slug'] = Str::slug($data[$lang]['name']);
                 }
             }

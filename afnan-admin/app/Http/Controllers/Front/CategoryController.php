@@ -12,4 +12,9 @@ class CategoryController extends Controller
         $categories=Category::where('status',1)->get();
         return response()->json($categories);
     }
+    public function collectionById($id)
+    {
+        $categories = Category::where('status', 1)->where('id', $id)->first();
+        return response()->json($categories);
+    }
 }

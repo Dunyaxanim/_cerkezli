@@ -51,6 +51,26 @@
                     </li>
 
                 </ul>
+
+                <ul class="nav side-menu">
+                    <li><a><i class="fa fa-line-chart"></i> TimeLine Category<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('timeline-category.index')}}">Timeline Category List</a></li>
+                            <li><a href="{{route('timeline-category.create')}}">Timeline Category əlavə et</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav side-menu">
+                    <li><a><i class="fa fa-line-chart"></i> TimeLine <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('timeline.index')}}">Timeline List</a></li>
+                            <li><a href="{{route('timeline.create')}}">Timeline əlavə et</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
                 <ul class="nav side-menu">
 
                     <li><a><i class="fa fa-pencil-square-o"></i> Bloglar <span class="fa fa-chevron-down"></span></a>

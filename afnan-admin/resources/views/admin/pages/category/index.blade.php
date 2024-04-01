@@ -65,12 +65,12 @@
                                     {{$model->id}}
                                     </td>
                                     <td>
-                                        {{ strlen($model->name) > 20 ? substr($model->name, 0, 20) . '...' : $model->name }}</td>
+                                        {{ $model->name }}</td>
                                     <td>
                                         {{ strlen($model->slug) > 20 ? substr($model->slug, 0, 20) . '...' : $model->slug }}</td>
                                     <td class="text-center">
-                                        @if($model->img)
-                                            {{ strlen($model->parent->name) > 30 ? substr($model->parent->name, 0, 30) . '...' : $model->parent->name}}
+                                        @if($model->parent_id)
+                                            {{ $model->parent->name}}
 
                                         @else
                                         @endif
@@ -92,6 +92,7 @@
                                         </div>
                                     </td>
                                     <td class="text-center">{{$model->order}}</td>
+
                                     <td class=" d-flex justify-content-center">
                                         <form method="POST" action="{{route('category.edit',$model->id)}}">
                                             @csrf

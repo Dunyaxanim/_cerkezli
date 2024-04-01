@@ -12,12 +12,12 @@ return new class extends Migration
             $table->id();
             $table->boolean('status');
             $table->integer('view_count')->default(0);
-            $table->integer('like_count')->default(0);
+            // $table->integer('like_count')->default(0);
             $table->string('img',300)->nullable();
             $table->string('img_hover',300)->nullable();
             $table->dateTime('publish_date')->default(now());
-            $table->string('price')->default(0);
-            $table->string('in_stock')->default(0)->nullable();
+            // $table->string('price')->nullable();
+            // $table->string('in_stock')->nullable();
             $table->text('stock_code')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

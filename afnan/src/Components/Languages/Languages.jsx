@@ -17,11 +17,11 @@ const Languages = ({ isHovered }) => {
 
     return (
         <>
-            <div className={`${isHovered ? 'selection-container-blue' : 'selection-container-white'}`}>
+            <div className={`hidden-phone ${isHovered ? 'selection-container-blue' : 'selection-container-white'}`}>
                 <select value={lang} onChange={handleLanguageChange}>
-                    <option value="EN">AZ</option>
-                    <option value="RU">EN</option>
-                    <option value="FR">RU</option>
+                    <option value="az">AZ</option>
+                    <option value="en">EN</option>
+                    <option value="ru">RU</option>
                 </select>
                 <i className={`fa-solid fa-angle-down  ${isHovered ? 'custom-angle-blue' : 'custom-angle'}`}></i>
             </div>
