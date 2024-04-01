@@ -48,6 +48,7 @@
                                     <th class="text-center">Stock Code</th>
                                     <th class="text-center">Stock</th>
                                     <th class="text-center">Price</th>
+                                    <th class="text-center">Images</th>
                                     <th class="text-center">Əməliyatlar</th>
                                     <th class="text-center">Img</th>
                                     <th class="text-center">Hover img</th>
