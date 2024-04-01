@@ -23,6 +23,7 @@ const Filter = ({handleFilterValue}) => {
                 <div className="Collapsible__Inner">
                     <div className="Collapsible__Content">
                         <ul className="Linklist">
+
                             {
                                 dimensions.map((dimension) => (
                                     <li className="Linklist__Item" key={dimension.name}>
