@@ -53,15 +53,15 @@ class ProductService
         if ($request->has('img')) {
             $data['img'] = $this->fileUploadService->uploadFile($request->img, 'Product');
         }
-        if ($request->has('img_hover')) {
-            $data['img_hover'] = $this->fileUploadService->uploadFile($request->img_hover, 'Product');
-        }
-
         if ($request->has('status')) {
             $data['status'] = $request->input('status') === 'on' ? 1 : 0;
         }
 
 
+<<<<<<< HEAD
+
+        $model = $this->repository->save($data, new Instalment());
+=======
         $randomNumber = rand(1, 1000);
         $randomNumber = $randomNumber / 1000;
         if (strlen(str_replace(' ', '', $request['az']['name'])) > 5) {
@@ -75,6 +75,7 @@ class ProductService
         $data['user_id'] = Auth::id();
 
         $model = $this->repository->save($data, new Product());
+>>>>>>> a14afa0b6b44a11f1a12d0a6fa858df8c1e39d28
         $categoryIds = $request->category_id ?? [];
 
         if ($categoryIds[0] !== null) {

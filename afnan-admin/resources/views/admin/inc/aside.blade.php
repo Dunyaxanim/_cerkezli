@@ -9,7 +9,9 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{ !empty(auth()->user()->image) ? asset(auth()->user()->image) : asset('projects/admin/images/img.jpg') }}"  alt="pic" class="img-circle profile_img">
+                <img
+                    src="{{ !empty(auth()->user()->image) ? asset(auth()->user()->image) : asset('projects/admin/images/img.jpg') }}"
+                    alt="pic" class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -22,7 +24,7 @@
         </div>
         <!-- /menu profile quick info -->
 
-        <br />
+        <br/>
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -90,7 +92,6 @@
                     </li>
 
                 </ul>
-
                 <ul class="nav side-menu">
 
                     <li><a><i class="fa fa-image"></i>Our Looks<span class="fa fa-chevron-down"></span></a>
@@ -101,16 +102,51 @@
                     </li>
 
                 </ul>
+
+
+                <ul class="nav instal-menu">
+
+                    <li><a><i class="fa fa-image"></i>Instalments<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('instalment.index')}}">Instalments List</a></li>
+                            <li><a href="{{route('instalment.create')}}">Instalments Add</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="nav metaverse_exhibitions">
+
+                    <li><a><i class="fa fa-image"></i>Metaverse<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('metaverse.index')}}">Metaverse_exhibitions List</a></li>
+                            <li><a href="{{route('metaverse.create')}}">Metaverse_exhibitions Add</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+
+                <ul class="nav creator">
+
+                    <li><a><i class="fa fa-image"></i>Creator<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('creator.index')}}">Creator_exhibitions List</a></li>
+                            <li><a href="{{route('creator.create')}}">Creator_exhibitions Add</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
             </div>
+
             <div class="menu_section">
                 <h3>Users</h3>
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-users"></i> Users<span class="fa fa-chevron-down"></span></a>
 
-                            <ul class="nav child_menu">
-                                <li><a href="{{route('user.index')}}">İstifadəçi List</a></li>
-                                <li><a href="{{route('user.create')}}">İstifadəçi əlavə et</a></li>
-                            </ul>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('user.index')}}">İstifadəçi List</a></li>
+                            <li><a href="{{route('user.create')}}">İstifadəçi əlavə et</a></li>
+                        </ul>
 
                     </li>
                 </ul>
@@ -118,7 +154,7 @@
             <div class="menu_section">
                 <h3>SETTINGS</h3>
                 <ul class="nav side-menu">
-                    <li><a ><i class="fa fa-gear"></i> Site Settings  <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-gear"></i> Site Settings <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('settings.edit',1)}}">Site Settings</a></li>
                             <li><a href="{{route('privacy.edit',1)}}">Privacy Policy</a></li>
@@ -142,11 +178,12 @@
             <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="#"
+               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" > @csrf</form>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST"> @csrf</form>
         </div>
         <!-- /menu footer buttons -->
     </div>

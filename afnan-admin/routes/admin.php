@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CreatorController;
+use App\Http\Controllers\Admin\InstalmentController;
+use App\Http\Controllers\Admin\LookController;
+use App\Http\Controllers\Admin\MetaverseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,13 +57,21 @@ Route::post('/login',[\App\Http\Controllers\Auth\LoginController::class,'login']
       Route::post('product/update-status/{id}', [\App\Http\Controllers\Admin\ProductController::class,'updateStatus'])->name('product.update.status');
 
       //Looks
-         Route::resource('/look', \App\Http\Controllers\Admin\LookController::class)->except('show');
-         Route::post('look/update-status/{id}', [\App\Http\Controllers\Admin\LookController::class,'updateStatus'])->name('look.update.status');
-         Route::get('look/detail/{id}', [\App\Http\Controllers\Admin\LookController::class,'detail'])->name('look.detail');
-         Route::delete('look/detaildelete/{id}', [\App\Http\Controllers\Admin\LookController::class, 'detaildelete'])->name('look.detaildelete');
+         Route::resource('/look', LookController::class)->except('show');
+         Route::post('look/update-status/{id}', [LookController::class,'updateStatus'])->name('look.update.status');
+         Route::get('look/detail/{id}', [LookController::class,'detail'])->name('look.detail');
+         Route::delete('look/detaildelete/{id}', [LookController::class, 'detaildelete'])->name('look.detaildelete');
 
     Route::resource('/timeline-category', \App\Http\Controllers\Admin\TimelineCategoryController::class)->except('show');
 
+      //Instalment
+         Route::resource('/instalment',InstalmentController::class)->except('show');
+
+      //Metaverse
+         Route::resource('/metaverse',MetaverseController::class)->except('show');
+
+      //Creator
+         Route::resource('/creator',CreatorController::class)->except('show');
     Route::resource('/timeline', \App\Http\Controllers\Admin\TimelineController::class)->except('show');
 
      });

@@ -133,7 +133,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Silmək istədiyinizə misiniz?
+                Silmək istədiyinizə əmisiniz?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">XEYR</button>

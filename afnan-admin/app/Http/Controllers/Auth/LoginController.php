@@ -23,8 +23,7 @@ class LoginController extends Controller
             $user = Auth::user();
 
 
-            // if ($user->status === '1' && $user->hasRole('Super Admin')) {
-            if (true) {
+            if ($user->status == '1' && $user->hasRole('Super Admin')) {
                 return redirect()->route('admin.home');
             } elseif ($user->status !== '1') {
                 Auth::logout();

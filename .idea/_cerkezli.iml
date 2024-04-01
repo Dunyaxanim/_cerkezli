@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/afnan-admin/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/afnan-admin/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/afnan-admin/tests" isTestSource="true" packagePrefix="Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/afnan-admin/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/afnan-admin/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/afnan-admin/vendor/astrotomic/laravel-translatable" />

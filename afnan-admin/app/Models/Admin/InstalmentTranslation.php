@@ -5,8 +5,10 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryTranslation extends Model
+
+class InstalmentTranslation extends Model
 {
     use HasFactory;
-    public $fillable = ['name','slug','desc','seo_title','seo_desc','seo_key'];
-   }
+    public $fillable = ['heading','title','desc','content'];
+    public $timestamps = false;
+}
