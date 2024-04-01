@@ -13,7 +13,7 @@ class Category extends Model implements TranslatableContract
     use HasFactory;
     public $translationModel = CategoryTranslation::class;
     protected $fillable = [ 'status','f_status','parent_id','order','img'];
-    public $translatedAttributes = ['name','slug','desc','seo_title','seo_desc','seo_key'];
+    public array $translatedAttributes = ['name','slug','desc','seo_title','seo_desc','seo_key'];
 
     public function parent()
     {

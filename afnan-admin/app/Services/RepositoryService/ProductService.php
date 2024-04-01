@@ -51,29 +51,13 @@ class ProductService
         if ($request->has('img')) {
             $data['img'] = $this->fileUploadService->uploadFile($request->img, 'Product');
         }
-        if ($request->has('img_hover')) {
-            $data['img_hover'] = $this->fileUploadService->uploadFile($request->img_hover, 'Product');
-        }
-
         if ($request->has('status')) {
             $data['status'] = $request->input('status') === 'on' ? 1 : 0;
         }
 
 
-         $randomNumber = rand(1, 1000);
-        $randomNumber=$randomNumber/1000;
-         if (strlen(str_replace(' ','',$request['az']['name']))>5){
-             $stock_code = strtoupper(substr(str_replace(' ', '', $request['az']['name']), 0, 5));
 
-             $data['stock_code']=$stock_code.str_replace('.','',$randomNumber);
-
-         }else{
-         $data['stock_code']=strtoupper(str_replace(' ','',$request['az']['name'])).str_replace('.','',$randomNumber);
-         }
-         $data['in_stock']=$request['in_stock'];
-         $data['user_id']=Auth::id();
-
-        $model = $this->repository->save($data, new Product());
+        $model = $this->repository->save($data, new Instalment());
         $categoryIds = $request->category_id ?? [];
 
 
