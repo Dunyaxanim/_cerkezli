@@ -15,15 +15,24 @@ const
         const [filterVal, setFilterVal] = useState();
         const [products, setProducts] = useState([]);
 
-        const handleFilterValue = (value) => {
-            setProducts(products);
-
-            let filteredProducts = products.filter(product => {
-                return product.sizes.some(size => size.price !== null && size.size === value);
-            });
-
-            setProducts(() => filteredProducts);
-        }
+        const handleFilterValue = async (value) => {
+            try {
+                let apiUrl = `${config.development.api}/products`;
+                if (id !== undefined) {
+                    apiUrl += `/${id}`;
+                }
+                apiUrl += `?lang=${await storedLanguage()}`;
+        
+                const response = await axios.get(apiUrl);
+                const filteredProducts = response.data.filter(product => {
+                    return product.sizes.some(size => size.price !== null && size.size === value);
+                });
+        
+                setProducts(filteredProducts);
+            } catch (error) {
+                console.error('Data gelmedi! ', error);
+            }
+        };
 
         const changeLayoutMode = (count) => {
             setLayoutMode(count)
