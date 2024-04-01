@@ -20,6 +20,7 @@ const CatalogParfum = () => {
                 setItems(fetchCatalogData[0].products)
                 setSlug(fetchCatalogData[0].slug)
                 setItemId(fetchCatalogData[0].id)
+                
             } catch (error) {
                 console.error('Error fetching data', error);
             }

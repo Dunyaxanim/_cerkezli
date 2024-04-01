@@ -5,13 +5,25 @@ import { storedLanguage } from '../../../../http/api';
 import config from '../../../../config';
 import MainHero from '../MainHero/MainHero';
 
-import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
+import Filter from '../Filter/Filter';
 const
     Hero = ({ slug, id }) => {
         const [layoutMode, setLayoutMode] = useState(4);
         const [openSort, setOpenSort] = useState(false);
         const [openFilter, setOpenFilter] = useState(false);
+        const [filterVal, setFilterVal] = useState();
+        const [products, setProducts] = useState([]);
+
+        const handleFilterValue = (value) => {
+            setProducts(products);
+
+            let filteredProducts = products.filter(product => {
+                return product.sizes.some(size => size.price !== null && size.size === value);
+            });
+
+            setProducts(() => filteredProducts);
+        }
 
         const changeLayoutMode = (count) => {
             setLayoutMode(count)
@@ -21,8 +33,9 @@ const
         }
         const handleOpenFilter = () => {
             setOpenFilter(prev => !prev)
+
         }
-        const [products, setProducts] = useState([]);
+
         useEffect(() => {
             const fetchProducts = async () => {
                 try {
@@ -67,24 +80,11 @@ const
         const endOffset = itemOffset + itemsPerPage;
         const currentproducts = products.slice(itemOffset, endOffset);
         const pageCount = Math.ceil(products.length / itemsPerPage);
+
         const handlePageClick = (event) => {
             const newOffset = (event.selected * itemsPerPage) % products.length;
-
             setItemOffset(newOffset);
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         return (
             <div className={`shopify-section shopify-section--bordered ${id != undefined ? 'custom-shopify-section' : ''}`} id='shopify-section-collection-template'>
@@ -101,36 +101,9 @@ const
                                 </svg>
                             </button>
                         </header>
-
                         <div className="Drawer__Content">
                             <div className="Drawer__Main" data-scrollable="">
-                                <div className="Collapsible Collapsible--padded Collapsible--autoExpand">
-                                    <button type="button" className="Collapsible__Button Heading u-h6" data-action="toggle-collapsible" aria-expanded="false">Filters<span className="Collapsible__Plus"></span></button>
-                                    <div className="Collapsible__Inner">
-                                        <div className="Collapsible__Content">
-                                            <ul className="Linklist">
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="100ml" data-action="toggle-tag">100ML</button>
-                                                </li>
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="9am9pm" data-action="toggle-tag">9AM9PM</button>
-                                                </li>
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="edp" data-action="toggle-tag">EDP</button>
-                                                </li>
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="gift" data-action="toggle-tag">GIFT</button>
-                                                </li>
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="must-have" data-action="toggle-tag">MUST HAVE</button>
-                                                </li>
-                                                <li className="Linklist__Item">
-                                                    <button type="button" className="Link Link--primary Text--subdued" data-tag="smart-shopping" data-action="toggle-tag">SMART SHOPPING</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Filter handleFilterValue={handleFilterValue} />
                             </div>
 
                             <div className="Drawer__Footer Drawer__Footer--padded" data-drawer-animated-bottom="">
@@ -224,36 +197,8 @@ const
                         <div className='CollectionInner'>
                             <div className='CollectionInner__Sidebar CollectionInner__Sidebar--withTopToolbar hidden-pocket'>
                                 <div className='CollectionFilters'>
-                                    <div className='Collapsible Collapsible--padded Collapsible--autoExpand'>
-                                        <button type="button" className='Collapsible__Button Heading u-h6' aria-expanded='false'>
-                                            Filters
-                                            <span className='Collapsible__Plus'></span>
-                                        </button>
-                                        <div className="Collapsible__Inner">
-                                            <div className="Collapsible__Content">
-                                                <ul className="Linklist">
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="100ml" data-action="toggle-tag">100ML</button>
-                                                    </li>
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="9am9pm" data-action="toggle-tag">9AM9PM</button>
-                                                    </li>
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="edp" data-action="toggle-tag">EDP</button>
-                                                    </li>
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="gift" data-action="toggle-tag">GIFT</button>
-                                                    </li>
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="must-have" data-action="toggle-tag">MUST HAVE</button>
-                                                    </li>
-                                                    <li className="Linklist__Item">
-                                                        <button type="button" className="Link Link--primary Text--subdued" data-tag="smart-shopping" data-action="toggle-tag">SMART SHOPPING</button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <Filter handleFilterValue={handleFilterValue} />
+
                                 </div>
                                 {/* <button type="button" className="Button Button--secondary custom-reset-button-none" data-action="reset-tags">Reset</button> */}
                             </div>
@@ -277,7 +222,17 @@ const
                                                                 </h2>
                                                                 <div className="ProductItem__PriceList ProductItem__PriceList--showOnHover Heading">
                                                                     <span className="ProductItem__Price Price Text--subdued">
-                                                                        <span className="money">DSH {product.price}</span>
+                                                                        <span className="money">
+                                                                            DSH
+                                                                            {
+                                                                                product.sizes.map((size, index) => {
+                                                                                    if ((index === 0 || index === 1 || index === 2 || index === 3) && size.price != null) {
+                                                                                        return size.price;
+                                                                                    }
+                                                                                    return null;
+                                                                                }).find(price => price !== null)
+                                                                            }
+                                                                        </span>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -285,7 +240,6 @@ const
                                                     </div>
                                                 </div>
                                             ))
-
                                         }
                                     </div>
                                 </div>

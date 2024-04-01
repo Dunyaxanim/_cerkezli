@@ -9,7 +9,7 @@ const TopHead = () => {
           <div className="AnnouncementBar top-h">
             <div className="AnnouncementBar__Wrapper">
               <p className="AnnouncementBar__Content Heading">
-                WELCOME TO AFNAN PERFUMES
+                WELCOME TO CHERKEZLI PERFUMES
               </p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import Languages from '../../Components/Languages/Languages';
 import axios from 'axios';
 import config from '../../config';
 import { storedLanguage } from '../../http/api';
+import LanguagePhone from '../../Components/Languages/LanguagePhone/LanguagePhone';
 const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
     const location = useLocation();
 
@@ -263,7 +264,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                     </span>
                                     <span className={`Header__CartDot is-visible ${isHovered ? 'icon--transparent' : 'icon--primary'}`}></span>
                                 </Link>
-                                <Link to='/' onClick={handleWishListOpen} className={`Header__Icon hidden-phone Icon-Wrapper Icon-Wrapper--clickable ${isHovered ? 'icon--transparent' : 'icon--primary'}`} data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="Open cart">
+                                <Link onClick={handleWishListOpen} className={`Header__Icon hidden-phone Icon-Wrapper Icon-Wrapper--clickable ${isHovered ? 'icon--transparent' : 'icon--primary'}`} data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="Open cart">
                                     <i className="fa-regular fa-heart custom-heart"></i>
                                 </Link>
                                 <Languages isHovered={isHovered} />
@@ -309,35 +310,27 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                     }
                                 </nav>
                                 <nav className="SidebarMenu__Nav SidebarMenu__Nav--secondary">
+
+
                                     <ul className="Linklist Linklist--spacingLoose">
-                                        <li className="Linklist__Item">
-                                            <a href="/pages/about-us" className="Text--subdued Link Link--primary">About Us</a>
+                                        <LanguagePhone />
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/about" className="Text--subdued Link Link--primary" >My Wishlist</Link>
                                         </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/pages/contact-us" className="Text--subdued Link Link--primary">Contact Us</a>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/about" className="Text--subdued Link Link--primary">About Us</Link>
                                         </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/pages/our-stores" className="Text--subdued Link Link--primary">Our Stores</a>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/contact" className="Text--subdued Link Link--primary">Contact Us</Link>
                                         </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/pages/tabby-buy-now-pay-later" className="Text--subdued Link Link--primary">TABBY - BUY NOW PAY LATER</a>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/stores" className="Text--subdued Link Link--primary">Our Stores</Link>
                                         </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/search" className="Text--subdued Link Link--primary">Search</a>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/search" className="Text--subdued Link Link--primary">Search</Link>
                                         </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
-                                        </li>
-                                        <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
-                                        </li>  <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
-                                        </li>  <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
-                                        </li>  <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
-                                        </li>  <li className="Linklist__Item">
-                                            <a href="/account" className="Text--subdued Link Link--primary">Account</a>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/account" className="Text--subdued Link Link--primary">Account</Link>
                                         </li>
                                     </ul>
                                 </nav>

@@ -12,13 +12,13 @@ import ProductAside from '../ProductAside/ProductAside';
 const Detail = ({ id }) => {
     const [product, setProduct] = useState([])
     const [images, setImages] = useState([])
-   
+
     const [key, setKey] = useState(1);
     const [isPopup, setIsPopup] = useState(false);
     const [imgIndex, setImgIndex] = useState(1);
     const [isPlay, setIsPlay] = useState(false);
-    
-   
+
+
 
     const [isShareOpen, setIsShareOpen] = useState(false);
     const toggleShare = () => {
@@ -72,6 +72,7 @@ const Detail = ({ id }) => {
     }, []);
 
     useEffect(() => {
+
         // const productElement = document.querySelector('.shopify-section.shopify-section--bordered');
         // if (productElement) {
         //     productElement.style.minHeight = `${detailRef.current.offsetHeight}px`;
@@ -120,8 +121,7 @@ const Detail = ({ id }) => {
                         <div className='Product__ActionList hidden-lap-and-up '>
                             <div className="Product__ActionItem hidden-lap-and-up">
                                 <button
-                                    className="RoundButton RoundButton--small RoundButton--flat" onClick={() => handlePopup(key)}
-                                >
+                                    className="RoundButton RoundButton--small RoundButton--flat" onClick={() => handlePopup(key)}>
                                     <svg className="Icon Icon--plus" role="presentation" viewBox="0 0 16 16">
                                         <g stroke="currentColor" fill="none" fillRule="evenodd" strokeLinecap="square">
                                             <path d="M8,1 L8,15"></path>
@@ -305,7 +305,7 @@ const Detail = ({ id }) => {
                         </div>
                     </div>
 
-                    <ProductAside product={product} styled={styled}/>
+                    <ProductAside product={product} styled={styled} />
                     <div className='Product__Aside'></div>
                 </div>
             </section>

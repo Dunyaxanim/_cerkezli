@@ -13,16 +13,14 @@ class CategoryController extends Controller
 {
     public function __construct(protected CategoryService $service)
     {}
-
+    
     public function index()
     {
         $models=$this->service->dataAllWithPaginate();
       return view('admin.pages.category.index',['models'=>$models]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $categories=Category::all();

@@ -10,33 +10,32 @@ const ImageHero = () => {
         const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // API hazır olduğunda çalışacak fonksiyon
+      
         const onYouTubeIframeAPIReady = () => {
             const player = new window.YT.Player(videoRef.current, {
                 events: {
                     'onReady': (event) => {
-                        event.target.playVideo(); // Videoyu otomatik olarak oynat
+                        event.target.playVideo(); 
                     },
                     'onStateChange': (event) => {
                         if (event.data === window.YT.PlayerState.ENDED) {
-                            event.target.playVideo(); // Yeniden oynat
+                            event.target.playVideo(); 
                         }
                     }
                 },
             });
         };
 
-        // API yüklenene kadar bekle
         let checkInterval = setInterval(() => {
             if (window.YT && window.YT.Player) {
-                clearInterval(checkInterval); // API yüklendiyse interval'i durdur
-                onYouTubeIframeAPIReady(); // API hazır olduğunda çalıştır
+                clearInterval(checkInterval); 
+                onYouTubeIframeAPIReady(); 
             }
         }, 100);
 
-        // Komponent kaldırıldığında temizlik yap
+       
         return () => {
-            clearInterval(checkInterval); // Interval'i temizle
+            clearInterval(checkInterval); 
         };
     }, []);
 

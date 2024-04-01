@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 const ProductAside = ({ product, styled }) => {
     const detailRef = useRef(null);
+
     const [total, setTotal] = useState(1);
     const decrease = () => {
         total > 1 ? setTotal(prevTotal => prevTotal - 1) : prevTotal => prevTotal = 1;
@@ -10,6 +11,7 @@ const ProductAside = ({ product, styled }) => {
     const increase = () => {
         setTotal(prevTotal => prevTotal + 1);
     };
+
     useEffect(() => {
         const productElement = document.querySelector('.shopify-section.shopify-section--bordered');
         if (productElement) {
@@ -17,10 +19,52 @@ const ProductAside = ({ product, styled }) => {
         }
     }, [product])
 
+    // WishList
+
+    const [isAded, setIsAded] = useState(false)
+    const [allProductsLength, setAllProductslength] = useState([])
+
+    useEffect(() => {
+        const existingProductsCookie = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('products='));
+
+        if (existingProductsCookie) {
+            const existingProducts = existingProductsCookie.split('=')[1];
+            const parsedProducts = JSON.parse(decodeURIComponent(existingProducts));
+            console.log(parsedProducts)
+            setAllProductslength(Object.keys(parsedProducts).length);
+
+        } else {
+            console.log("Mevcut ürün bulunamadı.");
+        }
+    }, [isAded]);
+
     const handleProduct = () => {
-        console.log(JSON.stringify(product))
-        document.cookie = `product=${JSON.stringify(product)}; expires=${new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+
+        const existingProductsCookie = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('products='));
+        let products = {};
+
+        if (existingProductsCookie) {
+            const existingProducts = existingProductsCookie.split('=')[1];
+            products = JSON.parse(existingProducts);
+        }
+        const allproducts = Object.values(products)
+
+        const filteredProduct = allproducts.filter((obj) => obj.id === product.id);
+        if (filteredProduct.length > 0) {
+            delete products[product.id];
+            setIsAded(false)
+        } else {
+            setIsAded(true)
+            products[product.id] = product;
+        }
+        const expirationDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        document.cookie = `products=${JSON.stringify(products)}; expires=${expirationDate.toUTCString()}; path=/`;
     }
+
     return (
         <div className='Product__InfoWrapper'>
             <div className={`Product__Info ${styled['custom-Product__Info']}`}>
@@ -141,14 +185,33 @@ const ProductAside = ({ product, styled }) => {
                         </div>
                         <input type="hidden" name="product-id" defaultValue="6663061635234" />
                         <input type="hidden" name="section-id" defaultValue="product-template" />
-                        <div className="swym-button-bar swym-wishlist-button-bar swym-inject">
-                            <div  onClick={handleProduct} className="swym-btn-container swym-inject" data-position="default">
-                                <button className="swym-button swym-add-to-wishlist swym-inject swym-has-fave-count swym-btnlink swym-heart Button swym-loaded custom-swym-loaded" onClick={(event) => event.preventDefault()} aria-label="Add to Wishlist">
-                                    <span className="swym-wishlist-cta" >Add to Wishlist</span>
-                                </button>
-                                <span className="swym-fave-count">141</span>
-                            </div>
-                        </div>
+                        {
+
+                            isAded ? (
+                                <div className="swym-button-bar swym-wishlist-button-bar swym-inject">
+                                    <div onClick={handleProduct} className="swym-btn-container swym-inject" data-position="default">
+                                        <button className="swym-button swym-add-to-wishlist swym-inject swym-has-fave-count swym-btnlink swym-heart Button swym-loaded custom-swym-loaded"
+                                            onClick={(event) => event.preventDefault()}
+                                            aria-label="Add to Wishlist">
+                                            <span className="swym-wishlist-cta" >Added to Wishlist</span>
+                                        </button>
+                                        <span className="swym-fave-count">{allProductsLength}</span>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="swym-button-bar swym-wishlist-button-bar swym-inject">
+                                    <div onClick={handleProduct} className="swym-btn-container swym-inject" data-position="default">
+                                        <button className="swym-button swym-add-to-wishlist swym-inject swym-has-fave-count swym-btnlink swym-heart Button swym-loaded custom-swym-loaded"
+                                            onClick={(event) => event.preventDefault()}
+                                            aria-label="Add to Wishlist">
+                                            <span className="swym-wishlist-cta" >Add to Wishlist</span>
+                                        </button>
+                                        <span className="swym-fave-count">{allProductsLength}</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+
                     </form>
                     <div className="ProductMeta__Description">
                         <div className="Rte">

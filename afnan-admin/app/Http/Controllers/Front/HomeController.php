@@ -16,7 +16,10 @@ class HomeController extends Controller
 
         foreach ($looks as $look) {
             foreach ($look->detail as $detail) {
-                $products = Product::where('id', $detail->product_id)->get();
+                $products = Product::where('id', $detail->product_id)
+                    ->with('sizes')
+                    ->get();
+
                 $detail->products = $products;
             }
         }
@@ -26,17 +29,17 @@ class HomeController extends Controller
 
     public function getCollections()
     {
-        $collections = Category::where('status',1)->where('parent_id', 2)->get();
+        $collections = Category::where('status', 1)->where('parent_id', 2)->get();
         return response()->json($collections);
     }
     public function getSlideShow()
     {
-        $collections = Category::where('status',1)->where('parent_id', 2)->orderBy('order', 'asc')->take(5)->get();
+        $collections = Category::where('status', 1)->where('parent_id', 2)->orderBy('order', 'asc')->take(5)->get();
         return response()->json($collections);
     }
     public function latestCollections()
     {
-        $collections = Product::where('status',1)->latest()->take(6)->get();
+        $collections = Product::where('status', 1)->latest()->take(6)->get();
         return response()->json($collections);
     }
     public function catalog()

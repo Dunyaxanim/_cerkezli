@@ -8,7 +8,7 @@ const Main = () => {
                     <h1 className="SectionHeader__Heading Heading u-h1">ABOUT US</h1>
                 </div>
             </header>
-            <div className='PageContent PageContent--narrow Rte'>
+            <div className='PageContent PageContent--narrow Rte p-20'>
                 <p>
                     <img
                         height=""
