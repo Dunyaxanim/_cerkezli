@@ -8,23 +8,32 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Carbon\Carbon;
 class Blog extends Model implements TranslatableContract
 {
     use Translatable;
     use HasFactory;
-    public $translationModel =BlogTranslation::class;
-    protected $fillable = [ 'status','view_count','like_count','img','publish_date','read_time','order','category_id','user_id'];
-    public $translatedAttributes = ['name','slug','text','seo_title','seo_desc','seo_key'];
+    public $translationModel = BlogTranslation::class;
+    protected $fillable = ['status', 'view_count', 'like_count', 'img', 'publish_date', 'read_time', 'order', 'category_id', 'user_id'];
+    public $translatedAttributes = ['name', 'slug', 'text', 'seo_title', 'seo_desc', 'seo_key'];
 
-    public function category():BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-    public function User():BelongsTo
+    public function User(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function getFormattedCreatedAtAttribute()
+    {
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $createdAt->format('F d, Y');
     }
 
-
+    public function getFormattedPublishDateAtAttribute()
+    {
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $createdAt->format('F d, Y');
+    }
 }

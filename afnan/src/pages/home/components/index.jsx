@@ -25,20 +25,20 @@ const HomeComponents = () => {
             <SlideShow/>
             <ImageHero/>
             <LatestCollectionSlider/>
-            <IframeOne/>
-            <IframeTwo/>
+            {/* <IframeOne/> */}
+            {/* <IframeTwo/> */}
             <Feature/>
             <IframeThree/>
             <CatalogParfum/>
             <BlogOne/>
             <ImageHero/>
             <SmartShoping/>
-            <IframeTwo/>
+            {/* <IframeTwo/> */}
             <ShopSlider />
             <MostPopularProduct />
-            <IframeTwo />
+            {/* <IframeTwo /> */}
             <Directory />/
-            <IframeTwo />
+            {/* <IframeTwo /> */}
             <Collection />
             <Blog/>
             <TimeLine/>

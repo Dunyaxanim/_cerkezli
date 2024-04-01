@@ -5623,7 +5623,7 @@ button.swym-button.swym-loader.swym-loading:before {
 
 .swym-ui-component .swym-share-wishlist-modal .swym-share-wishlist-modal-dialog .swym-share-wishlist-email-btn.swym-disabled {
     cursor: auto;
-    background: #a8a8a9;
+    background: #071E4E;
     pointer-events: none
 }
 
@@ -7936,4 +7936,8 @@ button.swym-button.swym-loader.swym-loading:before {
 
 .wishList-open {
     display: block;
+}
+
+.d-none-modal {
+    display: none !important;
 }

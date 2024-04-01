@@ -6,6 +6,7 @@ import Languages from '../../Components/Languages/Languages';
 import axios from 'axios';
 import config from '../../config';
 import { storedLanguage } from '../../http/api';
+import LanguagePhone from '../../Components/Languages/LanguagePhone/LanguagePhone';
 const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
     const location = useLocation();
 
@@ -80,6 +81,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
     }
 
     const closeSideBarFunc = () => {
+        console.log("ok")
         setOpenSideBar(false)
         document.body.classList.remove('no-scroll');
     }
@@ -94,27 +96,32 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                 const menuItems = await axios.get(`${config.development.api}/categories?lang=${await storedLanguage()}`);
                 const menuItemsData = menuItems.data;
                 setMenuItems(menuItemsData);
-
             } catch (error) {
                 console.error('Error fetching data', error);
             }
         }
         fetchdataFunc()
     }, [])
-    const [isDropdown, setIsdropDown] = useState(false)
-
     useEffect(() => {
         menuItems.forEach(linklist => {
             if (linklist.parent_id === null) {
-                const li = document.getElementById(`Linklist${linklist.name}`)
-                const isdropdownElement = document.getElementById(`Linklist${linklist.name}`).firstElementChild.nextElementSibling.firstElementChild.firstElementChild;
+                const isdropdownElement = document.getElementById(`Linklist${linklist.name}`).firstElementChild;
+                const isdropMobile = document.getElementById(`Collapsible__Content${linklist.name}`);
                 if (isdropdownElement != null) {
+                    isdropdownElement.parentElement.parentElement.parentElement.firstElementChild.addEventListener('click', function (event) {
+                        event.preventDefault();
+                    });
                     if (isHoveredLiKey === linklist.id) {
-                        if (isHoveredLi) {
-                            const dropdownElement = document.getElementById(`Linklist${linklist.name}`).firstElementChild.nextElementSibling;
-                            dropdownElement.classList.toggle('custom-DropdownMenu')
-                        }
+                        const dropdownElement = document.getElementById(`Linklist${linklist.name}`).parentElement;
+                        dropdownElement.classList.toggle('custom-DropdownMenu')
                     }
+                }
+                if (isdropMobile.firstElementChild == null) {
+                    isdropMobile.parentElement.previousElementSibling.firstElementChild.classList.add('none-plus')
+                } else {
+                    isdropMobile.parentElement.previousElementSibling.addEventListener('click', function (event) {
+                        event.preventDefault();
+                    });
                 }
             }
         });
@@ -168,7 +175,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                         onMouseLeave={handleMouseLeave}
                     >
                         <div className='Header__Wrapper'>
-                            <div className='Header__FlexItem Header__FlexItem--fill'>
+                            <div className='Header__FlexItem Header__FlexItem--fill flex-1'>
                                 <button className={`Header__Icon Icon-Wrapper Icon-Wrapper--clickable hidden-desk ${isHovered ? 'icon--transparent' : 'icon--primary'}`} onClick={openSideBarFunc}>
                                     <span className="hidden-tablet-and-up">
                                         <svg className="Icon Icon--nav" role="presentation" viewBox="0 0 20 14">
@@ -186,15 +193,15 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                         {menuItems.map((menuItem) => (
                                             <React.Fragment key={menuItem.id}>
                                                 {menuItem.parent_id === null && (
-                                                    <li id={`Linklist${menuItem.name}`} key={menuItem.id} className={`HorizontalList__Item ${(isHoveredLi && isHoveredLiKey === menuItem.id) ? 'is-expanded' : ''}`} onMouseEnter={() => handleMouseEnterLi(menuItem.id)} onMouseLeave={handleMouseLeaveLi}>
-                                                        <Link to={`/${menuItem.slug === 'collections' ? `` : menuItem.slug}`} className={`Heading u-h6 ${isHovered ? 'custom-color-hover' : 'custom-color'}`}>
+                                                    <li key={menuItem.id} className={`HorizontalList__Item ${(isHoveredLi && isHoveredLiKey === menuItem.id) ? 'is-expanded' : ''}`} onMouseEnter={() => handleMouseEnterLi(menuItem.id)} onMouseLeave={handleMouseLeaveLi}>
+                                                        <Link to={`/${menuItem.slug}`} className={`Heading u-h6 ${isHovered ? 'custom-color-hover' : 'custom-color'}`}>
                                                             {menuItem.name}
                                                             <span className="Header__LinkSpacer">
                                                                 {menuItem.name}
                                                             </span>
                                                         </Link>
                                                         <div className={`DropdownMenu`}>
-                                                            <ul className='Linklist'>
+                                                            <ul className='Linklist' id={`Linklist${menuItem.name}`}>
                                                                 {menuItems.filter(element => element.parent_id === menuItem.id).map((subItem) => (
                                                                     <li key={subItem.id} className='Linklist__Item' >
                                                                         <Link to={`/pages/${subItem.slug}/${subItem.id}`} className='Link Link--secondary' >{subItem.name}</Link>
@@ -209,7 +216,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                     </ul>
                                 </nav>
                             </div>
-                            <div className='Header__FlexItem Header__FlexItem--logo'>
+                            <div className='Header__FlexItem Header__FlexItem--logo flex-5'>
                                 <h1 className='Header__Logo'>
                                     <Link to='/' className='Header__LogoLink'>
                                         <img className={`Header__LogoImage ${isHovered ? 'Header__LogoImage--primary' : 'Header__LogoImage--transparent'}`} src="/images/blue.avif" alt="" />
@@ -217,7 +224,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                     </Link>
                                 </h1>
                             </div>
-                            <div className='Header__FlexItem Header__FlexItem--fill'>
+                            <div className='Header__FlexItem Header__FlexItem--fill flex-5'>
                                 <Link to='/login' className={`Header__Icon Icon-Wrapper Icon-Wrapper--clickable hidden-phone ${isHovered ? 'icon--transparent' : 'icon--primary'}`}>
                                     <svg className={`Icon Icon--account ${isHovered ? 'icon--transparent' : 'icon--primary'}`} role="presentation" viewBox="0 0 20 20">
                                         <g transform="translate(1 1)" stroke="currentColor" strokeWidth="2" fill="none" fillRule="evenodd" strokeLinecap="square">
@@ -257,7 +264,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                                     </span>
                                     <span className={`Header__CartDot is-visible ${isHovered ? 'icon--transparent' : 'icon--primary'}`}></span>
                                 </Link>
-                                <Link to='/' onClick={handleWishListOpen} className={`Header__Icon Icon-Wrapper Icon-Wrapper--clickable ${isHovered ? 'icon--transparent' : 'icon--primary'}`} data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="Open cart">
+                                <Link onClick={handleWishListOpen} className={`Header__Icon hidden-phone Icon-Wrapper Icon-Wrapper--clickable ${isHovered ? 'icon--transparent' : 'icon--primary'}`} data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="Open cart">
                                     <i className="fa-regular fa-heart custom-heart"></i>
                                 </Link>
                                 <Languages isHovered={isHovered} />
@@ -267,47 +274,65 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                 </div>
             }
 
-            {/* <div className='shopify-section' id='shopify-section-popup'>
+            <div className='shopify-section' id='shopify-section-popup'>
                 <section id='sidebar-menu' className={`SidebarMenu Drawer Drawer--small Drawer--fromLeft  ${openSideBar ? 'custom-visibility' : ''}`}>
                     <header className='Drawer__Header custom-Drawer__Header'>
                         <button className='Drawer__Close Icon-Wrapper--clickable ' onClick={closeSideBarFunc}>
                             <i className="fa-solid fa-xmark icon-size" ></i>
                         </button>
                     </header>
-                    <div className={`Drawer__Content custom-Drawer__Content`}>
-                        <div className='Drawer__Main'>
-                            <div className='Drawer__Container'>
+                    <div className={`Drawer__Content`}>
+                        <div className='Drawer__Main ' >
+                            <div className='Drawer__Container custom-data-scrollable'>
                                 <nav className='SidebarMenu__Nav SidebarMenu__Nav--primary'>
                                     {
-                                        menuItems && menuItems.map((menu, index) => (
-
+                                        menuItems.map((menu) => (
                                             <div className='Collapsible' key={menu.id}>
-
-                                                <Link to={menu.slug ? `/${menu.slug}` : '/'} className='Collapsible__Button Heading Link Link--primary u-h6'>{menu.name}</Link>
-
-                                                {menu.parent_id ? (
+                                                {menu.parent_id === null && (
                                                     <div>
-                                                        <Link to={`/`} aria-expanded={(dropMenukey == menu.key) ? true : false} className={`Collapsible__Button Heading u-h6 ${(dropMenukey == menu.key) ? 'custom-area-expanded-true' : ''}`} >
-                                                            {menu.label}
-                                                            <span className='Collapsible__Plus' onClick={() => handleDropMenu(menu.key)}></span>
+                                                        <Link to={`/${menu.slug}`} aria-expanded={(dropMenukey == menu.id && dropMenu) ? true : false} className={`Collapsible__Button Heading u-h6 ${(dropMenukey == menu.id && dropMenu) ? 'custom-area-expanded-true' : ''}`} >
+                                                            {menu.name}
+                                                            <span className='Collapsible__Plus' onClick={() => { handleDropMenu(menu.id); }}></span>
                                                         </Link>
-                                                        <div className={`Collapsible__Inner ${(dropMenukey == menu.key) ? 'custom-Collapsible__Inner_menu' : 'custom-Collapsible__Inner_menu_hidden'}`}>
-                                                            <div className='Collapsible__Content'>
-                                                                {menu.subItems.map((subItem, subIndex) => (
-                                                                    <div key={subIndex} className='Collapsible'>
-                                                                        <Link to={`/${subItem.url}`} className='Collapsible__Button Heading Text--subdued Link Link--primary u-h7'>{subItem.label}</Link>
+                                                        <div className={`Collapsible__Inner ${(dropMenukey == menu.id && dropMenu) ? 'custom-Collapsible__Inner_menu' : 'custom-Collapsible__Inner_menu_hidden'}`}>
+                                                            <div className='Collapsible__Content' id={`Collapsible__Content${menu.name}`}>
+                                                                {menuItems.filter(element => element.parent_id === menu.id).map((subItem) => (
+                                                                    <div key={subItem.name} className='Collapsible' onClick={closeSideBarFunc}>
+                                                                        <Link to={`/pages/${subItem.slug}/${subItem.id}`} className='Collapsible__Button Heading Text--subdued Link Link--primary u-h7'  >{subItem.name}</Link>
                                                                     </div>
                                                                 ))}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                ) : (
-                                                    <Link to={menu.url ? `/${menu.url}` : '/'} className='Collapsible__Button Heading Link Link--primary u-h6'>{menu.label}</Link>
                                                 )}
-
                                             </div>
                                         ))
                                     }
+                                </nav>
+                                <nav className="SidebarMenu__Nav SidebarMenu__Nav--secondary">
+
+
+                                    <ul className="Linklist Linklist--spacingLoose">
+                                        <LanguagePhone />
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/about" className="Text--subdued Link Link--primary" >My Wishlist</Link>
+                                        </li>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/about" className="Text--subdued Link Link--primary">About Us</Link>
+                                        </li>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/contact" className="Text--subdued Link Link--primary">Contact Us</Link>
+                                        </li>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/stores" className="Text--subdued Link Link--primary">Our Stores</Link>
+                                        </li>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/search" className="Text--subdued Link Link--primary">Search</Link>
+                                        </li>
+                                        <li onClick={closeSideBarFunc} className="Linklist__Item">
+                                            <Link to="/account" className="Text--subdued Link Link--primary">Account</Link>
+                                        </li>
+                                    </ul>
                                 </nav>
                             </div>
                         </div>
@@ -315,7 +340,7 @@ const MainHeader = ({ handleWishListOpen, handleCheckOut }) => {
                 </section>
             </div>
 
-            <div onClick={closeSideBarFunc} className={`PageOverlay ${openSideBar ? 'is-visible' : ''}`}></div> */}
+            <div onClick={closeSideBarFunc} className={`PageOverlay ${openSideBar ? 'is-visible' : ''}`}></div>
         </>
     )
 }

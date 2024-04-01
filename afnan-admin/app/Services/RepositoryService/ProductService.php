@@ -6,11 +6,13 @@ namespace App\Services\RepositoryService;
 use App\Http\Requests\ProductRequest;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
+use App\Models\Admin\Size;
 use App\Repositories\ProductRepository;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Foreach_;
 
 class ProductService
 {
@@ -30,12 +32,11 @@ class ProductService
 
     public function dataAllWithPaginate()
     {
-        return Product::with('categories')->paginate(10);
+        return Product::with(['categories', 'sizes'])->paginate(10);
     }
 
     public function store(ProductRequest $request)
     {
-
         $data = $request->validated();
 
         foreach (config('app.languages') as $lang) {
@@ -47,6 +48,7 @@ class ProductService
                 }
             }
         }
+
 
         if ($request->has('img')) {
             $data['img'] = $this->fileUploadService->uploadFile($request->img, 'Product');
@@ -60,22 +62,20 @@ class ProductService
         }
 
 
-         $randomNumber = rand(1, 1000);
-        $randomNumber=$randomNumber/1000;
-         if (strlen(str_replace(' ','',$request['az']['name']))>5){
-             $stock_code = strtoupper(substr(str_replace(' ', '', $request['az']['name']), 0, 5));
+        $randomNumber = rand(1, 1000);
+        $randomNumber = $randomNumber / 1000;
+        if (strlen(str_replace(' ', '', $request['az']['name'])) > 5) {
+            $stock_code = strtoupper(substr(str_replace(' ', '', $request['az']['name']), 0, 5));
 
-             $data['stock_code']=$stock_code.str_replace('.','',$randomNumber);
-
-         }else{
-         $data['stock_code']=strtoupper(str_replace(' ','',$request['az']['name'])).str_replace('.','',$randomNumber);
-         }
-         $data['in_stock']=$request['in_stock'];
-         $data['user_id']=Auth::id();
+            $data['stock_code'] = $stock_code . str_replace('.', '', $randomNumber);
+        } else {
+            $data['stock_code'] = strtoupper(str_replace(' ', '', $request['az']['name'])) . str_replace('.', '', $randomNumber);
+        }
+        $data['in_stock'] = $request['in_stock'];
+        $data['user_id'] = Auth::id();
 
         $model = $this->repository->save($data, new Product());
         $categoryIds = $request->category_id ?? [];
-
 
         if ($categoryIds[0] !== null) {
             $categoryIdsArray = explode(',', $categoryIds[0]);
@@ -84,6 +84,17 @@ class ProductService
                 $model->categories()->attach($categoryId);
             }
         }
+
+        $sizeCount = count($request['price']);
+        for ($i = 0; $i < $sizeCount; $i++) {
+            $size = new Size();
+            $size->price = $request->price[$i];
+            $size->size = $request->size[$i];
+            $size->stock = $request->stock[$i];
+            $size->product_id = $model->id;
+            $size->save();
+        }
+
         self::clearCached();
 
         return $model;
@@ -124,8 +135,6 @@ class ProductService
 
         $categoryIds = $request->category_id ?? [];
 
-
-
         if ($categoryIds[0] === null) {
             $model->categories()->detach();
         } else {
@@ -138,11 +147,21 @@ class ProductService
             }
         }
 
-         $data['category_id'] = null;
-
+        $data['category_id'] = null;
         $model = $this->repository->save($data, $model);
+        $sizeCount = count($request['size']);
+        for ($i = 0; $i < $sizeCount; $i++) {
+            $value = $request['size'][$i];
+            $size = Size::where('product_id', $model->id)->where('size', $value)->first();
+            if ($size) {
+                $size->update([
+                    'price' => $request->price[$i],
+                    'stock' => $request->stock[$i],
+                ]);
+            }
+        }
+
         self::ClearCached();
         return $model;
     }
-
 }

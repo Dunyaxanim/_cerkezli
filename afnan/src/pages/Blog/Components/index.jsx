@@ -16,6 +16,7 @@ const index = () => {
                 const blogHero = response.data.filter(element => element.order == 1)
                 setBlogs(response.data)
                 setBlogHero(blogHero[0])
+                console.log(response.data)
             } catch (error) {
                 console.error(error)
             }
@@ -50,10 +51,10 @@ const index = () => {
                                             <div className="ImageHero__TextContent">
                                                 <header className="SectionHeader">
                                                     <h2 className="SectionHeader__Heading Heading u-h1 custom-SectionHeader__Heading-global">
-                                                        <Link to={`${blogHero['slug']}/${blogHero['id']}`} >{blogHero['name']}</Link>
+                                                        <Link to={`/blog/detail/${blogHero['slug']}/${blogHero['id']}`}>{blogHero['name']}</Link>
                                                     </h2>
                                                     <div className="SectionHeader__ButtonWrapper">
-                                                        <Link to={`${blogHero['slug']}/${blogHero['id']}`} className="Button Button--primary button-custom-color">Read more</Link>
+                                                        <Link  to={`/blog/detail/${blogHero['slug']}/${blogHero['id']}`} className="Button Button--primary button-custom-color">Read more</Link>
                                                     </div>
                                                 </header>
                                             </div>

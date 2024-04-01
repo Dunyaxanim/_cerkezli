@@ -16,7 +16,7 @@ const MainHero = ({ id }) => {
             }
         }
         fetchSliderMain()
-    }, [])
+    }, [id])
     return (
         <>
             <header className="PageHeader PageHeader--withBackground"
@@ -28,11 +28,11 @@ const MainHero = ({ id }) => {
 
                     <img alt="" className="lazyautosizes Image--lazyLoaded" data-sizes="auto" data-optimumx="1.2" data-parent-fit="cover" data-srcset="" sizes="1802px" />
                 </div>
-                <noscript>
+                {/* <noscript>
                     <div className="PageHeader__ImageWrapper Image--contrast"
                     //  style={{ backgroundImage: `url(${config.development.url}/${collection.img})` }}
                     ></div>
-                </noscript>
+                </noscript> */}
                 <div className="Container">
                     <div className="SectionHeader SectionHeader--center custom-SectionHeader-m">
                         <h1 className="SectionHeader__Heading Heading u-h1">{collection.name}</h1>

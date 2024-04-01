@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Dimension;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProductRequest extends FormRequest
 {
@@ -13,26 +15,23 @@ class ProductRequest extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-
-
-        $data = [
-            'img' => [ 'nullable','mimetypes:image/jpeg,image/png,image/webp,image/avif,image/svg'],
-            'price'=>['integer'],
-
-        ];
-
-        return $this->mapLanguageValidations($data);
+        try {
+            $data = [
+                'img' => ['nullable', 'mimetypes:image/jpeg,image/png,image/webp,image/avif,image/svg'],
+            ];
+            $data = $this->mapLanguageValidations($data);
+            $data = $this->dimensions($data);
+            return $data;
+        } catch (\Exception $e) {
+            Log::error('Validation error: ' . $e->getMessage());
+            throw $e;
+        }
     }
     public function messages(): array
     {
+        $dimensions = Dimension::all();
         $messages = [];
         foreach (config('app.languages') as $lang) {
             $messages["$lang.name.required"] = "  $lang Name sahəsi məcburidir.";
@@ -51,8 +50,11 @@ class ProductRequest extends FormRequest
             $messages["$lang.payment_options"] = "$lang payment options sahəsi bir sətir olmalıdır.";
             $messages["$lang.payment_options"] = "$lang payment options sahəsi ən çox :max simvol ola bilər.";
         }
-        $messages["price.required"] = 'Məhsulun qiyməti boş ola bilməz';
-        $messages["price.integer"] = 'Məhsulun qiyməti boş ola bilməz';
+        foreach ($dimensions as $dimension) {
+            $messages["$dimension->name.price.numeric"] = "$dimension->name sahəsi numeric deyer olamlidir.";
+            $messages["$dimension->name.stock.integer"] = "$dimension->name sahəsi integer deyer olmalidir.";
+            $messages["$dimension->name.size.string"] = "$dimension->name sahəsi integer deyer olmalidir.";
+        }
         return $messages;
     }
     private function mapLanguageValidations($data)
@@ -66,7 +68,18 @@ class ProductRequest extends FormRequest
             $data["$lang.seo_desc"] = 'nullable|string|max:500';
             $data["$lang.seo_key"] = 'nullable|string|max:500';
             $data["$lang.payment_options"] = 'nullable|string|max:500';
+        }
+        return $data;
+    }
 
+    private function dimensions($data)
+    {
+        $dimensions = Dimension::all();
+        foreach ($dimensions as $dimension) {
+            // $data[$dimension->name] = 'required|array';
+            $data["$dimension->name.stock"] = 'nullable|numeric';
+            $data["$dimension->name.size"] = 'nullable|string';
+            $data["$dimension->name.price"] = 'nullable|numeric';
         }
         return $data;
     }
